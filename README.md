@@ -46,6 +46,13 @@ Mubi is a streaming service that offers a carefully curated selection of movies 
     ```
 
 6. If you entered all the details correctly, your movie will start downloading.
+7. Then:
+
+    ```ffmpeg -i decrypted-video.mp4 -i decrypted-audio.{lang_code}.m4a -c copy -map 0:v:0 -map 1:a:0 outmuxed.mp4```
+   
+   or
+
+   ```ffmpeg -i decrypted-video.mp4 -i decrypted-audio.{lang_code}.m4a -acodec copy -vcodec copy outmuxed.mp4```
 
 ## Legal Notice
 - This program is intended solely for educational and informational purposes. The authors and contributors of this program do not condone or encourage any illegal or unethical activities. Any misuse of this program for unlawful or unethical purposes is strictly prohibited.
