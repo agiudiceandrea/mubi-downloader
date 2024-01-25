@@ -10,14 +10,18 @@ import shutil
 # Get the desired output filename from the user
 name = input('enter final file name: ')
 
+#CHANGE ANY «EDIT_ME» IN THE VARIABLES BELOW
+
 #Movie ID can be find in Dev tools if you type "viewing".
 movie_id="EDIT_ME"
 #To get the movie ID (in the URL) and the Authorization Bearer (in the headers), filter for the word "viewing" in your network traffic manager.
 authorization_bearer="Bearer EDIT_ME"
 #Search for "cenc" to get the value for the header "dt-custom-data:". Copy this value and paste it into the corresponding one in the script.
 dt_custom_data="dt-custom-data: EDIT_ME"
-#Output directory
-output_dir=os.path.join(os.getcwd(),f'{name}')
+#Output directorie
+folder_path = "EDIT_ME"
+
+dest_dir = f"{folder_path}/{name}"
 
 # Define headers to be sent with the HTTP request
 headers = {
@@ -104,10 +108,8 @@ print(decryption_key)
 decryption_key = f'key_id={decryption_key}'
 decryption_key = decryption_key.replace(":",":key=")
 # Download the video using N_m3u8DL-RE
-folder_path = output_dir # Make this a valid path to a folder
 os.system(fr'N_m3u8DL-RE "{mubi}" --auto-select --save-name "{name}" --auto-select --save-dir {folder_path} --tmp-dir {folder_path}/temp')
 # Run shaka-packager to decrypt the video file
-dest_dir = f"{folder_path}/{name}"
 os.system(fr'shaka-packager in="{folder_path}/{name}.mp4",stream=video,output="{dest_dir}/decrypted-video.mp4" --enable_raw_key_decryption --keys {decryption_key}')  # The decrypted video file will be saved in E:\uncomplete\{name}\decrypted-video.mp4
 
 # Define a regex pattern to match the audio file names
