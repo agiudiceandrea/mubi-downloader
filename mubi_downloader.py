@@ -12,9 +12,8 @@ name = input('enter final file name: ')
 
 #CHANGE ANY «EDIT_ME» IN THE VARIABLES BELOW
 
-#Movie ID can be find in Dev tools if you type "viewing".
-movie_id="EDIT_ME"
 #To get the movie ID (in the URL) and the Authorization Bearer (in the headers), filter for the word "viewing" in your network traffic manager.
+movie_id="EDIT_ME"
 authorization_bearer="Bearer EDIT_ME"
 #Search for "cenc" to get the value for the header "dt-custom-data:". Copy this value and paste it into the corresponding one in the script.
 dt_custom_data="dt-custom-data: EDIT_ME"
@@ -107,8 +106,8 @@ decryption_key = result.group()
 print(decryption_key)
 decryption_key = f'key_id={decryption_key}'
 decryption_key = decryption_key.replace(":",":key=")
-# Download the video using N_m3u8DL-RE
-os.system(fr'N_m3u8DL-RE "{mubi}" --auto-select --save-name "{name}" --auto-select --save-dir {folder_path} --tmp-dir {folder_path}/temp')
+# Download video / audio / subs using N_m3u8DL-RE
+os.system(fr'N_m3u8DL-RE "{mubi}" --concurrent-download --auto-select --save-name "{name}" --save-dir {folder_path} --tmp-dir {folder_path}/temp')
 # Run shaka-packager to decrypt the video file
 os.system(fr'shaka-packager in="{folder_path}/{name}.mp4",stream=video,output="{dest_dir}/decrypted-video.mp4" --enable_raw_key_decryption --keys {decryption_key}')  # The decrypted video file will be saved in E:\uncomplete\{name}\decrypted-video.mp4
 
